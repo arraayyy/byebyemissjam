@@ -1,0 +1,116 @@
+.shell-landing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+.orb-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.orb {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.orb-half {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-image: radial-gradient(circle at 50% 100%, #434343, #000000);
+  backface-visibility: hidden;
+  transition: transform 1s ease;
+}
+
+.orb-top {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  transform-origin: bottom center;
+}
+
+.orb-bottom {
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  transform-origin: top center;
+}
+
+.shell-landing.open .orb-top {
+  transform: translateY(-50%) rotateX(90deg);
+}
+
+.shell-landing.open .orb-bottom {
+  transform: translateY(50%) rotateX(-90deg);
+}
+
+.cards {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.card {
+  position: absolute;
+  width: 180px;
+  height: 250px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  border-radius: 10px;
+  transition: all 0.8s ease-in-out 0.5s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px #fff;
+}
+
+.shell-landing.open .card {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.shell-landing.open .card.dara {
+  transform: translate(-120%, -50%) scale(1) rotate(-15deg);
+}
+
+.shell-landing.open .card.roe {
+  transform: translate(20%, -50%) scale(1) rotate(15deg);
+}
+
+.card:hover {
+  transform: scale(1.1) rotate(0deg) !important;
+  z-index: 10;
+}
+
+.card.dara {
+  background: linear-gradient(45deg, #8a2be2, #ff1493);
+  box-shadow: 0 0 30px #ff1493;
+}
+
+.card.roe {
+  background: linear-gradient(45deg, #00bfff, #1e90ff);
+  box-shadow: 0 0 30px #00bfff;
+}

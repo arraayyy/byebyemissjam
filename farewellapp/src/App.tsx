@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import Sidebar from './components/Sidebar'
-import LandingPage from './components/LandingPage'
-import RoeSection from './components/RoeSection'
-import DaraSection from './components/DaraSection'
-import './App.css'
+import { useState, Suspense } from 'react';
+import ShellLanding from './components/ShellLanding';
+import FriendSelection from './components/FriendSelection';
+import MemoriesGallery from './components/MemoriesGallery';
+import MagicCanvas from './components/MagicCanvas';
+import MagicCursor from './components/MagicCursor';
+import './App.css';
+
+type AppState = 'shell-closed' | 'shell-open' | 'memories-dara' | 'memories-roe';
 
 function App() {
-  const [currentSection, setCurrentSection] = useState<'landing' | 'roe' | 'dara'>('landing')
+  const [appState, setAppState] = useState<AppState>('shell-closed');
 
-  const renderCurrentSection = () => {
-    switch (currentSection) {
-      case 'roe':
-        return <RoeSection />
-      case 'dara':
-        return <DaraSection />
+  const renderCurrentState = () => {
+    switch (appState) {
+      case 'shell-closed':
+        return <ShellLanding onCardClick={(friend) => setAppState(friend === 'dara' ? 'memories-dara' : 'memories-roe')} />;
+      case 'shell-open':
+        return (
+          <FriendSelection
+            onFriendSelect={(friend) =>
+              setAppState(friend === 'dara' ? 'memories-dara' : 'memories-roe')
+            }
+            onClose={() => setAppState('shell-closed')}
+          />
+        );
+      case 'memories-dara':
+        return <MemoriesGallery friend="dara" onBack={() => setAppState('shell-closed')} />;
+      case 'memories-roe':
+        return <MemoriesGallery friend="roe" onBack={() => setAppState('shell-closed')} />;
       default:
-        return <LandingPage />
+        return <ShellLanding onCardClick={(friend) => setAppState(friend === 'dara' ? 'memories-dara' : 'memories-roe')} />;
     }
-  }
+  };
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar 
-        onSectionChange={setCurrentSection} 
-        currentSection={currentSection} 
-      />
-      <main className="flex-1 ml-64 transition-all duration-300">
-        {renderCurrentSection()}
-      </main>
+    <div className="app-container">
+      <MagicCursor />
+      <Suspense fallback={null}>
+        <MagicCanvas />
+      </Suspense>
+      {renderCurrentState()}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
