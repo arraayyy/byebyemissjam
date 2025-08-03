@@ -24,8 +24,28 @@ const ShellLanding: React.FC<ShellLandingProps> = ({ onCardClick }) => {
           <div className="orb-half orb-bottom"></div>
         </div>
         <div className="cards">
-          <div className="card dara" onClick={() => onCardClick('dara')}>Dara</div>
-          <div className="card roe" onClick={() => onCardClick('roe')}>Roe</div>
+          <div className="card dara" onClick={() => onCardClick('dara')}>
+            <div className="card-image">
+              <div className="placeholder-avatar">
+                <span>📸</span>
+              </div>
+            </div>
+            <div className="card-content">
+              <h3>Dara</h3>
+              <p>Click to explore memories</p>
+            </div>
+          </div>
+          <div className="card roe" onClick={() => onCardClick('roe')}>
+            <div className="card-image">
+              <div className="placeholder-avatar">
+                <span>📸</span>
+              </div>
+            </div>
+            <div className="card-content">
+              <h3>Roe</h3>
+              <p>Click to explore memories</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
