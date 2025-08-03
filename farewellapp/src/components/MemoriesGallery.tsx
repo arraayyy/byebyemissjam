@@ -40,12 +40,12 @@ Your Friend ✨🎮`,
       date: 'March 2024'
     },
     photos: [
-      { id: 1, title: 'Gaming Marathon', caption: 'Our epic 12-hour gaming session - we actually beat the final boss!', rotation: -3, position: { top: 15, left: 5 } },
-      { id: 2, title: 'Concert Night', caption: 'Dancing like no one was watching (but everyone definitely was)', rotation: 5, position: { top: 20, right: 8 } },
-      { id: 3, title: 'Coffee Shop Adventures', caption: 'Plotting world domination over lattes', rotation: -2, position: { bottom: 25, left: 12 } },
-      { id: 4, title: 'Road Trip Chaos', caption: 'Got lost but found the best hidden cafe ever!', rotation: 4, position: { bottom: 35, right: 15 } },
-      { id: 5, title: 'Birthday Surprise', caption: 'The look on your face when we surprised you was priceless', rotation: -1, position: { top: 45, left: 20 } },
-      { id: 6, title: 'Study Session', caption: 'Somehow we actually got work done between snack breaks', rotation: 3, position: { top: 55, right: 25 } }
+      { id: 1, title: 'Gaming Marathon', caption: 'Our epic 12-hour gaming session - we actually beat the final boss!', rotation: -8, position: { top: 10, left: 8 }, image: '/images/dara-gaming-marathon.JPG' },
+      { id: 2, title: 'Concert Night', caption: 'Dancing like no one was watching (but everyone definitely was)', rotation: 12, position: { top: 8, right: 5 }, image: '/images/dara-concert-night.JPG' },
+      { id: 3, title: 'Coffee Shop Adventures', caption: 'Plotting world domination over lattes', rotation: -5, position: { bottom: 20, left: 3 }, image: '/images/dara-coffee-shop.jpg' },
+      { id: 4, title: 'Road Trip Chaos', caption: 'Got lost but found the best hidden cafe ever!', rotation: 7, position: { bottom: 15, right: 8 }, image: '/images/dara-road-trip.jpg' },
+      { id: 5, title: 'Birthday Surprise', caption: 'The look on your face when we surprised you was priceless', rotation: -3, position: { top: 40, left: 2 }, image: '/images/dara-birthday.JPG' },
+      { id: 6, title: 'Study Session', caption: 'Somehow we actually got work done between snack breaks', rotation: 9, position: { top: 35, right: 2 }, image: '/images/dara-study-session.jpg' }
     ]
   }
 
@@ -67,12 +67,12 @@ Your Forever Friend 💙⭐`,
       date: 'March 2024'
     },
     photos: [
-      { id: 1, title: 'Art Studio Magic', caption: 'You creating masterpieces while I made a mess', rotation: -4, position: { top: 10, left: 8 } },
-      { id: 2, title: 'Beach Day Bliss', caption: 'Collecting shells and making memories', rotation: 2, position: { top: 25, right: 10 } },
-      { id: 3, title: 'Midnight Conversations', caption: 'Deep talks under the stars about dreams and magic', rotation: -1, position: { bottom: 30, left: 15 } },
-      { id: 4, title: 'Garden Picnic', caption: 'You made flower crowns while I picked all the snacks', rotation: 6, position: { bottom: 20, right: 12 } },
-      { id: 5, title: 'Movie Marathon', caption: 'Fantasy films and way too much popcorn', rotation: -3, position: { top: 50, left: 25 } },
-      { id: 6, title: 'Sunrise Adventure', caption: 'You convinced me to wake up at 5am and it was totally worth it', rotation: 1, position: { top: 40, right: 20 } }
+      { id: 1, title: 'Art Studio Magic', caption: 'You creating masterpieces while I made a mess', rotation: -6, position: { top: 12, left: 6 }, image: '/images/roe-art-studio.jpg' },
+      { id: 2, title: 'Beach Day Bliss', caption: 'Collecting shells and making memories', rotation: 8, position: { top: 5, right: 4 }, image: '/images/roe-beach-day.jpg' },
+      { id: 3, title: 'Midnight Conversations', caption: 'Deep talks under the stars about dreams and magic', rotation: -4, position: { bottom: 25, left: 5 }, image: '/images/roe-midnight-talks.jpg' },
+      { id: 4, title: 'Garden Picnic', caption: 'You made flower crowns while I picked all the snacks', rotation: 10, position: { bottom: 18, right: 6 }, image: '/images/roe-garden-picnic.jpg' },
+      { id: 5, title: 'Movie Marathon', caption: 'Fantasy films and way too much popcorn', rotation: -7, position: { top: 42, left: 4 }, image: '/images/roe-movie-marathon.jpg' },
+      { id: 6, title: 'Sunrise Adventure', caption: 'You convinced me to wake up at 5am and it was totally worth it', rotation: 5, position: { top: 38, right: 3 }, image: '/images/roe-sunrise-adventure.JPG' }
     ]
   }
 
@@ -177,7 +177,7 @@ Your Forever Friend 💙⭐`,
             >
               <div className="photo-image" role="img" aria-label={`Photo: ${photo.title} - ${photo.caption}`}>
                 <div className="photo-placeholder">
-                  <div className="photo-icon">📸</div>
+                  <img src={photo.image} alt={photo.title} className="memory-photo" />
                   <div className="photo-title">{photo.title}</div>
                 </div>
               </div>

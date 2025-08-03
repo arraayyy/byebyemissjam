@@ -3,7 +3,7 @@ import ShellLanding from './components/ShellLanding';
 import FriendSelection from './components/FriendSelection';
 import MemoriesGallery from './components/MemoriesGallery';
 import MagicCanvas from './components/MagicCanvas';
-import MagicCursor from './components/MagicCursor';
+import SnowflakeCursor from './components/MagicCursor';
 import './App.css';
 
 type AppState = 'shell-closed' | 'shell-open' | 'memories-dara' | 'memories-roe';
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <MagicCursor />
+      <SnowflakeCursor />
       <Suspense fallback={null}>
         <MagicCanvas />
       </Suspense>
