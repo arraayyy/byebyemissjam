@@ -1,6 +1,7 @@
 import Fireflies from './Fireflies';
 import { useState, useEffect, useRef } from 'react'
 import { soundEffects } from '../utils/soundEffects'
+import { getMemoryImages } from '../utils/imageUtils'
 import './MemoriesGallery.css'
 
 interface MemoriesGalleryProps {
@@ -78,13 +79,46 @@ Your Forever Friend 💙⭐`,
 
   const currentMemories = friend === 'dara' ? daraMemories : roeMemories
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsPlaying(true)
-    }, 5000)
+  const allImages = getMemoryImages()
 
-    return () => clearTimeout(timer)
-  }, [])
+  useEffect(() => {
+    if (friend === 'roe') {
+      setTimeout(() => {
+        setIsPlaying(true)
+        if (audioRef.current) {
+          audioRef.current.play().catch(console.error)
+        }
+      }, 500)
+    } else if (friend === 'dara') {
+      const timer = setTimeout(() => {
+        setIsPlaying(true)
+        if (audioRef.current) {
+          audioRef.current.play().catch(console.error)
+        }
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [friend])
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load()
+      
+      const handleCanPlay = () => {
+        if (isPlaying && audioRef.current) {
+          audioRef.current.play().catch(console.error)
+        }
+      }
+      
+      audioRef.current.addEventListener('canplaythrough', handleCanPlay)
+      
+      return () => {
+        if (audioRef.current) {
+          audioRef.current.removeEventListener('canplaythrough', handleCanPlay)
+        }
+      }
+    }
+  }, [friend, isPlaying])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -99,12 +133,17 @@ Your Forever Friend 💙⭐`,
   }, [isPlaying])
 
   const togglePlay = () => {
-    setIsPlaying(!isPlaying)
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        setIsPlaying(false)
       } else {
-        audioRef.current.play();
+        audioRef.current.play().then(() => {
+          setIsPlaying(true)
+        }).catch((error) => {
+          console.error('Audio play failed:', error)
+          setIsPlaying(false)
+        });
       }
     }
   }
@@ -147,48 +186,98 @@ Your Forever Friend 💙⭐`,
         </h1>
       </div>
 
-      <div className="memories-layout">
-        <div className="center-letter">
-          <div className="letter-paper">
-            <div className="letter-header">
-              <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
-              <div className="letter-date">{currentMemories.centerLetter.date}</div>
-            </div>
-            <div className="letter-body">
-              {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="photos-scattered">
-          {currentMemories.photos.map((photo) => (
-            <div
-              key={photo.id}
-              className={`photo-polaroid ${friend}-photo`}
-              style={{
-                transform: `rotate(${photo.rotation}deg)`,
-                ...(photo.position.top && { top: `${photo.position.top}%` }),
-                ...(photo.position.bottom && { bottom: `${photo.position.bottom}%` }),
-                ...(photo.position.left && { left: `${photo.position.left}%` }),
-                ...(photo.position.right && { right: `${photo.position.right}%` })
-              }}
-            >
-              <div className="photo-image" role="img" aria-label={`Photo: ${photo.title} - ${photo.caption}`}>
-                <div className="photo-placeholder">
-                  <img src={photo.image} alt={photo.title} className="memory-photo" />
-                  <div className="photo-title">{photo.title}</div>
+        <div className="memories-layout">
+          {friend === 'roe' ? (
+            <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', padding: '20px' }}>
+              {/* Left scrolling gallery */}
+              <div className="scrolling-gallery left-gallery">
+                <div className="scrolling-images">
+                  {[...allImages, ...allImages].map((image, index) => (
+                    <img
+                      key={`left-${index}`}
+                      src={image}
+                      alt={`Memory ${index + 1}`}
+                      className="scroll-image"
+                    />
+                  ))}
                 </div>
               </div>
-              <div className="photo-caption">{photo.caption}</div>
-              <div className="photo-tape"></div>
-            </div>
-          ))}
-        </div>
-      </div>
 
-      <div className="music-player">
+              {/* Center letter */}
+              <div className="center-letter" style={{ flex: '0 0 600px', zIndex: 10 }}>
+                <div className="letter-paper">
+                  <div className="letter-header">
+                    <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
+                    <div className="letter-date">{currentMemories.centerLetter.date}</div>
+                  </div>
+                  <div className="letter-body">
+                    {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right scrolling gallery */}
+              <div className="scrolling-gallery right-gallery">
+                <div className="scrolling-images">
+                  {[...allImages, ...allImages].map((image, index) => (
+                    <img
+                      key={`right-${index}`}
+                      src={image}
+                      alt={`Memory ${index + 1}`}
+                      className="scroll-image"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="center-letter">
+                <div className="letter-paper">
+                  <div className="letter-header">
+                    <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
+                    <div className="letter-date">{currentMemories.centerLetter.date}</div>
+                  </div>
+                  <div className="letter-body">
+                    {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="photos-scattered">
+                {currentMemories.photos.map((photo) => (
+                  <div
+                    key={photo.id}
+                    className={`photo-polaroid ${friend}-photo`}
+                    style={{
+                      transform: `rotate(${photo.rotation}deg)`,
+                      ...(photo.position.top && { top: `${photo.position.top}%` }),
+                      ...(photo.position.bottom && { bottom: `${photo.position.bottom}%` }),
+                      ...(photo.position.left && { left: `${photo.position.left}%` }),
+                      ...(photo.position.right && { right: `${photo.position.right}%` })
+                    }}
+                  >
+                    <div className="photo-image" role="img" aria-label={`Photo: ${photo.title} - ${photo.caption}`}>
+                      <div className="photo-placeholder">
+                        <img src={photo.image} alt={photo.title} className="memory-photo" />
+                        <div className="photo-title">{photo.title}</div>
+                      </div>
+                    </div>
+                    <div className="photo-caption">{photo.caption}</div>
+                    <div className="photo-tape"></div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+      {friend !== 'roe' && (
+        <div className="music-player">
         <div className="player-container">
           <div className="player-display">
             <div className="track-info">
@@ -257,15 +346,17 @@ Your Forever Friend 💙⭐`,
           </div>
         </div>
       </div>
+      )}
 
 
       <audio
+        key={friend}
         ref={audioRef}
         loop
-        // volume={volume}
+        volume={volume}
         onEnded={() => setCurrentTrack((currentTrack + 1) % tracks.length)}
       >
-        <source src="/music/nostalgic-track.mp3" type="audio/mpeg" />
+        <source src={friend === 'roe' ? "/music/newyears.mp3" : "/music/nostalgic-track.mp3"} type="audio/mpeg" />
       </audio>
     </div>
   )

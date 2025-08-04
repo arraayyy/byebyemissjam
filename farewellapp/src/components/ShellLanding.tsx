@@ -1,10 +1,63 @@
 import { useState, useEffect, useRef } from 'react';
 import { soundEffects } from '../utils/soundEffects';
+import { getAllImages } from '../utils/imageUtils';
 import './ShellLanding.css';
 
 interface ShellLandingProps {
   onCardClick: (friend: 'dara' | 'roe') => void;
 }
+
+// Generate puzzle piece clip paths with knobs/indentations
+const generatePuzzlePieceClipPath = (hasTopKnob: boolean, hasRightKnob: boolean, hasBottomKnob: boolean, hasLeftKnob: boolean) => {
+  const knobSize = 15; // Percentage
+  const knobOffset = 42.5; // Percentage from edge (centered)
+  
+  let points: string[] = [];
+  
+  // Start from top-left corner
+  points.push('0% 0%');
+  
+  // Top edge
+  if (hasTopKnob) {
+    points.push(`${knobOffset}% 0%`);
+    points.push(`${knobOffset + 2}% -${knobSize * 0.3}%`);
+    points.push(`${knobOffset + knobSize * 0.5}% -${knobSize}%`);
+    points.push(`${knobOffset + knobSize - 2}% -${knobSize * 0.3}%`);
+    points.push(`${knobOffset + knobSize}% 0%`);
+  }
+  points.push('100% 0%');
+  
+  // Right edge
+  if (hasRightKnob) {
+    points.push(`100% ${knobOffset}%`);
+    points.push(`${100 + knobSize * 0.3}% ${knobOffset + 2}%`);
+    points.push(`${100 + knobSize}% ${knobOffset + knobSize * 0.5}%`);
+    points.push(`${100 + knobSize * 0.3}% ${knobOffset + knobSize - 2}%`);
+    points.push(`100% ${knobOffset + knobSize}%`);
+  }
+  points.push('100% 100%');
+  
+  // Bottom edge
+  if (hasBottomKnob) {
+    points.push(`${knobOffset + knobSize}% 100%`);
+    points.push(`${knobOffset + knobSize - 2}% ${100 + knobSize * 0.3}%`);
+    points.push(`${knobOffset + knobSize * 0.5}% ${100 + knobSize}%`);
+    points.push(`${knobOffset + 2}% ${100 + knobSize * 0.3}%`);
+    points.push(`${knobOffset}% 100%`);
+  }
+  points.push('0% 100%');
+  
+  // Left edge
+  if (hasLeftKnob) {
+    points.push(`0% ${knobOffset + knobSize}%`);
+    points.push(`-${knobSize * 0.3}% ${knobOffset + knobSize - 2}%`);
+    points.push(`-${knobSize}% ${knobOffset + knobSize * 0.5}%`);
+    points.push(`-${knobSize * 0.3}% ${knobOffset + 2}%`);
+    points.push(`0% ${knobOffset}%`);
+  }
+  
+  return `polygon(${points.join(', ')})`;
+};
 
 const ShellLanding: React.FC<ShellLandingProps> = ({ onCardClick }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,6 +133,67 @@ const ShellLanding: React.FC<ShellLandingProps> = ({ onCardClick }) => {
       onMouseLeave={handleMouseLeave}
       style={{ cursor: 'none' }}
     >
+      {/* Puzzle Background */}
+      <div className="puzzle-background">
+        {(() => {
+          const cols = 8;
+          const rows = 7;
+          const pieces = [];
+          
+          // Create patterns for horizontal and vertical connections
+          const horizontalKnobs: boolean[][] = Array(rows).fill(null).map(() => Array(cols - 1).fill(false));
+          const verticalKnobs: boolean[][] = Array(rows - 1).fill(null).map(() => Array(cols).fill(false));
+          
+          // Generate random knob patterns for connections
+          for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols - 1; col++) {
+              horizontalKnobs[row][col] = Math.random() > 0.5;
+            }
+          }
+          
+          for (let row = 0; row < rows - 1; row++) {
+            for (let col = 0; col < cols; col++) {
+              verticalKnobs[row][col] = Math.random() > 0.5;
+            }
+          }
+          
+          const images = getAllImages();
+          
+          for (let i = 0; i < cols * rows; i++) {
+            const col = i % cols;
+            const row = Math.floor(i / cols);
+            const pieceWidth = 100 / cols;
+            const pieceHeight = 100 / rows;
+            const imageIndex = i % images.length;
+            
+            // Determine knobs based on connection patterns
+            const hasTopKnob = row > 0 ? verticalKnobs[row - 1][col] : false;
+            const hasRightKnob = col < cols - 1 ? horizontalKnobs[row][col] : false;
+            const hasBottomKnob = row < rows - 1 ? !verticalKnobs[row][col] : false;
+            const hasLeftKnob = col > 0 ? !horizontalKnobs[row][col - 1] : false;
+            
+            const clipPath = generatePuzzlePieceClipPath(hasTopKnob, hasRightKnob, hasBottomKnob, hasLeftKnob);
+            
+            pieces.push(
+              <div
+                key={i}
+                className="puzzle-piece"
+                style={{
+                  backgroundImage: `url(${images[imageIndex]})`,
+                  width: `${pieceWidth}%`,
+                  height: `${pieceHeight}%`,
+                  left: `${col * pieceWidth}%`,
+                  top: `${row * pieceHeight}%`,
+                  clipPath: clipPath,
+                }}
+              />
+            );
+          }
+          
+          return pieces;
+        })()}
+      </div>
+
       {/* Custom Cursor */}
       <div 
         className={`custom-cursor ${isHovering ? 'hovering' : ''}`}
