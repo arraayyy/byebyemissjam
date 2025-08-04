@@ -78,9 +78,29 @@ See you around, Miss. :D HEHEHEHE wala pa nahuman ang kanta miss xD?
 
   const roeMemories = { 
     centerLetter: {
-      title: 'For My Creative Soul Sister',
-      content: `Dearest Roe Ann,\n\nYou bring magic to everything you touch. Watching you create art is like witnessing actual sorcery - the way you see beauty in the simplest things and transform them into something extraordinary.\n\nOur friendship has been one of the most beautiful adventures of my life. From those quiet moments working on art projects together to our spontaneous beach days where we collected shells and stories.\n\nYou have this incredible way of making everyone feel special, like they're the main character in their own fairy tale. Your magical blue glow isn't just in your aesthetic - it radiates from your kind heart.\n\nThank you for being my anchor in chaos and my inspiration in calm. You're more precious than any treasure in the sea.\n\nWith all my love,\nYour Forever Friend 💙⭐`,
-      date: 'March 2024',
+      title: 'To Our Amazing team leader',
+      content: `Hello miss,
+
+The first time we met kay sa office. I remember how shy I was, katong naa koy pangutana ni RB nya tapad mo ato, nya ako giiswag gamay ang laptop kay mauwaw ko mutan-aw ka XD. HAHAHAHA.
+
+Anyways, this is our gift to you, miss. Amo jud ni gi-effortan kay love ka namo, yiee.
+
+First of all, congratulations on your new business, miss. I wish you the best of luck as you start this new journey. Even though we're happy for your next success in life, it's still sad to think na mawad-an namig amazing team leader who always pushes us, our friend, mentor, and safe space. HAHAHA legit ang safe space, miss. You just have this approachable vibe that makes you someone we’re not afraid to ask for help from. Katong naabot ka sa FE Team, miss, it felt like a big burden had been lifted. Maybe the best way to say it is, it felt like there was a shield guiding and protecting us.
+
+It's amazing to think we’ve accomplished so many projects and tasks in just a few months with your guidance, support, wisdom, and master skillzzzz, miss. Without you, personally, I don't think ing-ato kadaghan among ma-accomplish, miss. Thank you for the knowledge you've shared with us. Thank you for the tips. Thank you for the lessons, miss. We've really learned a lot. HAHAHAHAHAHA, sagol-sagol na akong thoughts, miss, di ma-organize, di pareha sa imo work miss, so organized :DDD. I became a big fan of how organized you are, miss; that is truly inspiring. For sure, we will keep applying the lessons you've taught us. You taught us well, miss. :)
+
+This part right here, nawad-an nakog mastorya hahahahaha.
+Actually, ikaw among first na team leader, miss, and you've set the standard. Wala nay makapuli nimo, miss, huhuhu. Sige nakog balik-balik pero I really, really, really learned a lot, miss. Thank you diay sa gift, miss. I've started reading it na and I’m starting to see a different perspective.
+
+Wala koy ma-share na wisdom or something miss or mahatag na kwarta HAHAHAHAHA, pero ig balik nimo'g basa ang letter, paminawa “Graceland Too” - Phoebe Bridgers na music. Murag sayop akong song choice gigamit ani da AHAHAHAH. Also miss, I'd like to share this: O'mali, I think maganahan ka'g himo and pwede nimo ibutang sa menu HAHAHA. I think rsd ha, paladesisyon kay ko AHAHHA. Bitaw miss, ganahan rako mutilaw balik ana. Actually nakatilaw ko ana because sa ako friend ga own sad silag cafe but sadly wala nila nabutang sa menu, bali ako una naka-tilaw HAHAHAHAH. Actually, ako gi-search kaning Egyptian bread pudding, miss, ha, basin sayop na imong ma-search AHAHAHA.
+
+I think wala najud koy masulti, miss. My words fall short, but I hope you can feel how much you’ve meant to us. We will surely miss you. Even writing this letter now, it feels nostalgic already. I hope you do well in life, miss, your family, your business. I know we will meet again, hehehe, kita tulo. I hope you are proud of us, miss, what we've become and what we will be. You are forever etched in our memories. This is it, miss, but it isn't. This might be the end of a chapter, but not the end of what you’ve started in us.
+
+Thank you for believing in us even when we doubted ourselves.
+
+- Roe ")
+`,
+      date: 'August 08, 2025',
     },
     photos: [
       { id: 1, title: 'Art Studio Magic', caption: 'You creating masterpieces while I made a mess', rotation: -6, position: { top: 12, left: 6 }, image: '/images/roe-art-studio.jpg' },
@@ -127,7 +147,7 @@ See you around, Miss. :D HEHEHEHE wala pa nahuman ang kanta miss xD?
               </div>
             </div>
 
-            <div className="center-letter" style={{ flex: '0 0 600px', zIndex: 10 }}>
+            <div className="center-letter roe-letter" style={{ flex: '0 0 600px', zIndex: 10 }}>
               <div className="letter-paper">
                 <div className="letter-header">
                   <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>

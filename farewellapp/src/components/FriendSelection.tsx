@@ -108,7 +108,7 @@ We've bottled up our memories for the past months (and a few tears) for you Ms. 
           <img src={roeProfile} alt="Roe Ann" className="card-profile-image" />
           <div className="card-body">
             <h2 className="card-name">Roe Ann's Heartbreak</h2>
-            <p className="card-tagline">"makahilak jud ka ani miss"</p>
+            <p className="card-tagline">"makahilak jud ka ani miss. <br/> - Hala si Dara gasuwat ana"</p>
           </div>
         </motion.div>
       </div>

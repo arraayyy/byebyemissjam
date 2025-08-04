@@ -188,6 +188,27 @@
   position: relative;
   z-index: 2;
   text-align: left;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.letter-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.letter-body::-webkit-scrollbar-track {
+  background: rgba(203, 213, 225, 0.2);
+  border-radius: 4px;
+}
+
+.letter-body::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.4);
+  border-radius: 4px;
+}
+
+.letter-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
 }
 
 .letter-body p {
@@ -799,6 +820,18 @@
   font-weight: 500;
 }
 
+/* Roe letter responsiveness */
+@media (max-width: 1024px) {
+  .roe-letter {
+    flex: 0 0 500px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .roe-letter {
+    flex: 0 0 400px !important;
+  }
+}
 
 @media (max-width: 768px) {
   .memories-gallery {
@@ -904,6 +937,7 @@
   .letter-body {
     font-size: 13px;
     line-height: 1.6;
+    max-height: 350px;
   }
 
   /* Dara layout adjustments */
@@ -1010,6 +1044,10 @@
   }
 
   /* Roe layout for small screens */
+  .roe-letter {
+    flex: 0 0 320px !important;
+  }
+
   .scrolling-gallery {
     max-width: 280px;
     height: 180px;
@@ -1032,6 +1070,7 @@
   .letter-body {
     font-size: 12px;
     line-height: 1.5;
+    max-height: 300px;
   }
 
   /* Dara layout for small screens */
@@ -1118,6 +1157,10 @@
   }
 
   /* Roe layout for very small screens */
+  .roe-letter {
+    flex: 0 0 280px !important;
+  }
+
   .scrolling-gallery {
     max-width: 260px;
     height: 160px;
@@ -1134,6 +1177,7 @@
 
   .letter-body {
     font-size: 11px;
+    max-height: 250px;
   }
 
   /* Dara layout for very small screens */
