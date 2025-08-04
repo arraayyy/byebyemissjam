@@ -62,11 +62,9 @@ class SoundEffects {
     });
   }
 
-  shellOpen() {
-    this.createTone(400, 0.3, 'sawtooth');
-    setTimeout(() => this.createTone(600, 0.4, 'triangle'), 200);
-    setTimeout(() => this.createTone(800, 0.5, 'sine'), 400);
-  }
+  // shellOpen: () => {
+  //   // new Audio('/music/crystal-shatter.mp3').play();
+  // },
 
   cardSelect() {
     this.createTone(1000, 0.2, 'triangle');

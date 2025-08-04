@@ -1,71 +1,59 @@
 import Fireflies from './Fireflies';
-import { useState, useEffect, useRef } from 'react'
-import { soundEffects } from '../utils/soundEffects'
-import { getMemoryImages } from '../utils/imageUtils'
-import './MemoriesGallery.css'
+import { useState, useEffect, useRef } from 'react';
+import { soundEffects } from '../utils/soundEffects';
+import { getMemoryImages } from '../utils/imageUtils';
+import Lightbox from './Lightbox';
+import { AnimatePresence } from 'framer-motion';
+import './MemoriesGallery.css';
 
 interface MemoriesGalleryProps {
-  friend: 'dara' | 'roe'
-  onBack: () => void
+  friend: 'dara' | 'roe';
+  onBack: () => void;
+}
+
+interface Photo {
+  id: number;
+  title: string;
+  caption: string;
+  rotation: number;
+  position: { top?: number; right?: number; bottom?: number; left?: number };
+  image: string;
 }
 
 const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ friend, onBack }) => {
-  const [currentTrack, setCurrentTrack] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [volume, setVolume] = useState(0.7)
-  const [progress, setProgress] = useState(0)
-  const [achievements] = useState<string[]>(['Shell Explorer', 'Memory Explorer'])
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const [selectedImage, setSelectedImage] = useState<Photo | null>(null);
+  const [achievements] = useState<string[]>(['Shell Explorer', 'Memory Explorer']);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-  const tracks = [
-    { title: "You'll Be In My Heart", artist: 'Phil Collins', duration: '4:18' },
-    { title: 'Can You Feel The Love Tonight', artist: 'Elton John', duration: '3:59' },
-    { title: 'A Whole New World', artist: 'Disney', duration: '4:02' },
-    { title: 'Colors of the Wind', artist: 'Pocahontas', duration: '3:35' },
-    { title: 'Beauty and the Beast', artist: 'Disney', duration: '4:05' }
-  ]
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(console.error);
+    }
+  }, [friend]);
 
   const daraMemories = {
     centerLetter: {
-      title: 'To My Gaming Partner',
-      content: `Hey Dara!
-
-I've been thinking about all our crazy adventures together and just had to write this down. Remember that first time we tried playing that co-op game? We were absolutely terrible but couldn't stop laughing! 
-
-From late night gaming sessions to those random 3am deep talks about life, you've been such an incredible friend. Your cyberpunk aesthetic isn't just a look - it's your whole vibe of being fearlessly yourself.
-
-Thanks for always having my back, whether we're conquering virtual worlds or just trying to figure out real life. Here's to many more epic adventures together!
-
-Stay awesome,
-Your Friend ✨🎮`,
-      date: 'March 2024'
+      title: 'To My Cutie Senior FE Dev',
+      content: `Hi Miorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.ss Jam TESTETSTETSTSTT ✨🎮`,
+      date: '04.08.2025',
     },
     photos: [
-      { id: 1, title: 'Gaming Marathon', caption: 'Our epic 12-hour gaming session - we actually beat the final boss!', rotation: -8, position: { top: 10, left: 8 }, image: '/images/dara-gaming-marathon.JPG' },
-      { id: 2, title: 'Concert Night', caption: 'Dancing like no one was watching (but everyone definitely was)', rotation: 12, position: { top: 8, right: 5 }, image: '/images/dara-concert-night.JPG' },
-      { id: 3, title: 'Coffee Shop Adventures', caption: 'Plotting world domination over lattes', rotation: -5, position: { bottom: 20, left: 3 }, image: '/images/dara-coffee-shop.jpg' },
-      { id: 4, title: 'Road Trip Chaos', caption: 'Got lost but found the best hidden cafe ever!', rotation: 7, position: { bottom: 15, right: 8 }, image: '/images/dara-road-trip.jpg' },
-      { id: 5, title: 'Birthday Surprise', caption: 'The look on your face when we surprised you was priceless', rotation: -3, position: { top: 40, left: 2 }, image: '/images/dara-birthday.JPG' },
-      { id: 6, title: 'Study Session', caption: 'Somehow we actually got work done between snack breaks', rotation: 9, position: { top: 35, right: 2 }, image: '/images/dara-study-session.jpg' }
-    ]
-  }
+      { id: 1, title: 'Cutie Devs', caption: 'Pero ikaw jud pinaka cute diri miss oy', rotation: 0, position: { top: 5, left: 2 }, image: '/images/dara-gaming-marathon.JPG' },
+      { id: 2, title: 'Productivity', caption: 'Chika lang sa ta ani miss, kay naa sa sud ang laptop xD', rotation: 0, position: { top: 8, right: 2 }, image: '/images/dara-concert-night.JPG' },
+      { id: 3, title: 'FE MileStone', caption: '2030: Frontend Devs Change History? xD.', rotation: 0, position: { top: 35, left: 1 }, image: '/images/dara-coffee-shop.jpg' },
+      { id: 4, title: 'Legacy Onboard', caption: 'Bsan unsa nalang ako gibutang diri ahahaha, gamay ra ato pics miss. Memorize na nako imo nawong miss hahahah', rotation: 0, position: { top: 38, right: 1 }, image: '/images/dara-road-trip.jpg' },
+      { id: 5, title: 'Christmas Party Performance', caption: 'salamat sa pagtudlo sa steppings miss, Bonjour~ Bonjour~  ', rotation: 0, position: { top: 65, left: 3 }, image: '/images/dara-birthday.jpg' },
+      { id: 6, title: 'Chika Session', caption: 'Salamat sa tanan nmu advice ate Jam <3 ', rotation: 0, position: { top: 68, right: 3 }, image: '/images/dara-study-session.jpg' },
 
-  const roeMemories = {
+      
+    ],
+  };
+
+  const roeMemories = { 
     centerLetter: {
       title: 'For My Creative Soul Sister',
-      content: `Dearest Roe Ann,
-
-You bring magic to everything you touch. Watching you create art is like witnessing actual sorcery - the way you see beauty in the simplest things and transform them into something extraordinary.
-
-Our friendship has been one of the most beautiful adventures of my life. From those quiet moments working on art projects together to our spontaneous beach days where we collected shells and stories.
-
-You have this incredible way of making everyone feel special, like they're the main character in their own fairy tale. Your magical blue glow isn't just in your aesthetic - it radiates from your kind heart.
-
-Thank you for being my anchor in chaos and my inspiration in calm. You're more precious than any treasure in the sea.
-
-With all my love,
-Your Forever Friend 💙⭐`,
-      date: 'March 2024'
+      content: `Dearest Roe Ann,\n\nYou bring magic to everything you touch. Watching you create art is like witnessing actual sorcery - the way you see beauty in the simplest things and transform them into something extraordinary.\n\nOur friendship has been one of the most beautiful adventures of my life. From those quiet moments working on art projects together to our spontaneous beach days where we collected shells and stories.\n\nYou have this incredible way of making everyone feel special, like they're the main character in their own fairy tale. Your magical blue glow isn't just in your aesthetic - it radiates from your kind heart.\n\nThank you for being my anchor in chaos and my inspiration in calm. You're more precious than any treasure in the sea.\n\nWith all my love,\nYour Forever Friend 💙⭐`,
+      date: 'March 2024',
     },
     photos: [
       { id: 1, title: 'Art Studio Magic', caption: 'You creating masterpieces while I made a mess', rotation: -6, position: { top: 12, left: 6 }, image: '/images/roe-art-studio.jpg' },
@@ -73,293 +61,128 @@ Your Forever Friend 💙⭐`,
       { id: 3, title: 'Midnight Conversations', caption: 'Deep talks under the stars about dreams and magic', rotation: -4, position: { bottom: 25, left: 5 }, image: '/images/roe-midnight-talks.jpg' },
       { id: 4, title: 'Garden Picnic', caption: 'You made flower crowns while I picked all the snacks', rotation: 10, position: { bottom: 18, right: 6 }, image: '/images/roe-garden-picnic.jpg' },
       { id: 5, title: 'Movie Marathon', caption: 'Fantasy films and way too much popcorn', rotation: -7, position: { top: 42, left: 4 }, image: '/images/roe-movie-marathon.jpg' },
-      { id: 6, title: 'Sunrise Adventure', caption: 'You convinced me to wake up at 5am and it was totally worth it', rotation: 5, position: { top: 38, right: 3 }, image: '/images/roe-sunrise-adventure.JPG' }
-    ]
-  }
+      { id: 6, title: 'Sunrise Adventure', caption: 'You convinced me to wake up at 5am and it was totally worth it', rotation: 5, position: { top: 38, right: 3 }, image: '/images/roe-sunrise-adventure.JPG' },
+    ],
+  };
 
-  const currentMemories = friend === 'dara' ? daraMemories : roeMemories
+  const currentMemories = friend === 'dara' ? daraMemories : roeMemories;
 
-  const allImages = getMemoryImages()
-
-  useEffect(() => {
-    if (friend === 'roe') {
-      setTimeout(() => {
-        setIsPlaying(true)
-        if (audioRef.current) {
-          audioRef.current.play().catch(console.error)
-        }
-      }, 500)
-    } else if (friend === 'dara') {
-      const timer = setTimeout(() => {
-        setIsPlaying(true)
-        if (audioRef.current) {
-          audioRef.current.play().catch(console.error)
-        }
-      }, 5000)
-      return () => clearTimeout(timer)
-    }
-  }, [friend])
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.load()
-      
-      const handleCanPlay = () => {
-        if (isPlaying && audioRef.current) {
-          audioRef.current.play().catch(console.error)
-        }
-      }
-      
-      audioRef.current.addEventListener('canplaythrough', handleCanPlay)
-      
-      return () => {
-        if (audioRef.current) {
-          audioRef.current.removeEventListener('canplaythrough', handleCanPlay)
-        }
-      }
-    }
-  }, [friend, isPlaying])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (audioRef.current && isPlaying) {
-        const current = audioRef.current.currentTime
-        const duration = audioRef.current.duration
-        setProgress((current / duration) * 100 || 0)
-      }
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [isPlaying])
-
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false)
-      } else {
-        audioRef.current.play().then(() => {
-          setIsPlaying(true)
-        }).catch((error) => {
-          console.error('Audio play failed:', error)
-          setIsPlaying(false)
-        });
-      }
-    }
-  }
-
+  const allImages = getMemoryImages();
 
   return (
     <div className="memories-gallery">
       <Fireflies />
-      <div className="gaming-hud">
-        <div className="progress-bar">
-          <div className="memory-font">Memories Unlocked: 100%</div>
-          <div className="progress-meter">
-            <div className="progress-fill" style={{ width: '100%' }} />
-          </div>
-        </div>
-
-        <div className="achievements-display">
-          {achievements.map((achievement, index) => (
-            <div key={index} className="achievement-badge">
-              <span className="memory-font">{achievement}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      
 
       <div className="gallery-header">
-        <button 
-          className="back-button memory-font" 
+        <button
+          className="back-button memory-font"
           onClick={() => {
-            soundEffects.buttonPress()
-            onBack()
+            soundEffects.buttonPress();
+            onBack();
           }}
           aria-label="Return to memory box selection"
           tabIndex={0}
         >
           ← Back to Memory Box
         </button>
-        <h1 className="elegant-font gallery-title">
-          {friend.charAt(0).toUpperCase() + friend.slice(1)} Memories
-        </h1>
+        <h1 className="elegant-font gallery-title">{friend.charAt(0).toUpperCase() + friend.slice(1)} Memories</h1>
       </div>
 
-        <div className="memories-layout">
-          {friend === 'roe' ? (
-            <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', padding: '20px' }}>
-              {/* Left scrolling gallery */}
-              <div className="scrolling-gallery left-gallery">
-                <div className="scrolling-images">
-                  {[...allImages, ...allImages].map((image, index) => (
-                    <img
-                      key={`left-${index}`}
-                      src={image}
-                      alt={`Memory ${index + 1}`}
-                      className="scroll-image"
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Center letter */}
-              <div className="center-letter" style={{ flex: '0 0 600px', zIndex: 10 }}>
-                <div className="letter-paper">
-                  <div className="letter-header">
-                    <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
-                    <div className="letter-date">{currentMemories.centerLetter.date}</div>
-                  </div>
-                  <div className="letter-body">
-                    {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
-                      <p key={index}>{paragraph}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right scrolling gallery */}
-              <div className="scrolling-gallery right-gallery">
-                <div className="scrolling-images">
-                  {[...allImages, ...allImages].map((image, index) => (
-                    <img
-                      key={`right-${index}`}
-                      src={image}
-                      alt={`Memory ${index + 1}`}
-                      className="scroll-image"
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="center-letter">
-                <div className="letter-paper">
-                  <div className="letter-header">
-                    <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
-                    <div className="letter-date">{currentMemories.centerLetter.date}</div>
-                  </div>
-                  <div className="letter-body">
-                    {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
-                      <p key={index}>{paragraph}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="photos-scattered">
-                {currentMemories.photos.map((photo) => (
-                  <div
-                    key={photo.id}
-                    className={`photo-polaroid ${friend}-photo`}
-                    style={{
-                      transform: `rotate(${photo.rotation}deg)`,
-                      ...(photo.position.top && { top: `${photo.position.top}%` }),
-                      ...(photo.position.bottom && { bottom: `${photo.position.bottom}%` }),
-                      ...(photo.position.left && { left: `${photo.position.left}%` }),
-                      ...(photo.position.right && { right: `${photo.position.right}%` })
-                    }}
-                  >
-                    <div className="photo-image" role="img" aria-label={`Photo: ${photo.title} - ${photo.caption}`}>
-                      <div className="photo-placeholder">
-                        <img src={photo.image} alt={photo.title} className="memory-photo" />
-                        <div className="photo-title">{photo.title}</div>
-                      </div>
-                    </div>
-                    <div className="photo-caption">{photo.caption}</div>
-                    <div className="photo-tape"></div>
-                  </div>
+      <div className="memories-layout">
+        {friend === 'roe' ? (
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', padding: '20px' }}>
+            <div className="scrolling-gallery left-gallery">
+              <div className="scrolling-images">
+                {[...allImages, ...allImages].map((image, index) => (
+                  <img key={`left-${index}`} src={image} alt={`Memory ${index + 1}`} className="scroll-image" />
                 ))}
               </div>
-            </>
-          )}
-        </div>
-
-      {friend !== 'roe' && (
-        <div className="music-player">
-        <div className="player-container">
-          <div className="player-display">
-            <div className="track-info">
-              <div className="elegant-font track-title">{tracks[currentTrack].title}</div>
-              <div className="track-artist">{tracks[currentTrack].artist}</div>
             </div>
-            
-            <div className="visualizer">
-              {Array.from({ length: 12 }, (_, i) => (
-                <div 
-                  key={i} 
-                  className={`eq-bar ${isPlaying ? 'dancing' : ''}`}
-                  style={{ animationDelay: `${i * 0.1}s` }}
-                />
+
+            <div className="center-letter" style={{ flex: '0 0 600px', zIndex: 10 }}>
+              <div className="letter-paper">
+                <div className="letter-header">
+                  <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
+                  <div className="letter-date">{currentMemories.centerLetter.date}</div>
+                </div>
+                <div className="letter-body">
+                  {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="scrolling-gallery right-gallery">
+              <div className="scrolling-images">
+                {[...allImages, ...allImages].map((image, index) => (
+                  <img key={`right-${index}`} src={image} alt={`Memory ${index + 1}`} className="scroll-image" />
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="dara-memories-scattered">
+            <div className="center-letter">
+              <div className="letter-paper">
+                <div className="letter-header">
+                  <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
+                  <div className="letter-date">{currentMemories.centerLetter.date}</div>
+                </div>
+                <div className="letter-body">
+                  {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="photos-scattered">
+              {currentMemories.photos.map((photo, index) => (
+                <div
+                  key={photo.id}
+                  className={`photo-polaroid ${friend}-photo photo-${index + 1}`}
+                  onClick={() => setSelectedImage(photo)}
+                  style={{
+                    '--rotation': `${photo.rotation}deg`,
+                    '--photo-index': index,
+                    ...(photo.position.top && { top: `${photo.position.top}%` }),
+                    ...(photo.position.left && { left: `${photo.position.left}%` }),
+                    ...(photo.position.right && { right: `${photo.position.right}%` }),
+                  } as React.CSSProperties}
+                >
+                  <div className="photo-image" role="img" aria-label={`Photo: ${photo.title} - ${photo.caption}`}>
+                    <div className="photo-placeholder">
+                      <img src={photo.image} alt={photo.title} className="memory-photo" />
+                      <div className="photo-title">{photo.title}</div>
+                    </div>
+                  </div>
+                  <div className="photo-caption">{photo.caption}</div>
+                  <div className="photo-tape"></div>
+                </div>
               ))}
             </div>
           </div>
-          
-          <div className="player-controls">
-            <button 
-              className="control-btn" 
-              onClick={() => setCurrentTrack(Math.max(0, currentTrack - 1))}
-              aria-label="Previous track"
-              disabled={currentTrack === 0}
-            >
-              ⏮
-            </button>
-            <button 
-              className="control-btn play-btn" 
-              onClick={togglePlay}
-              aria-label={isPlaying ? 'Pause music' : 'Play music'}
-            >
-              {isPlaying ? '⏸' : '▶'}
-            </button>
-            <button 
-              className="control-btn" 
-              onClick={() => setCurrentTrack(Math.min(tracks.length - 1, currentTrack + 1))}
-              aria-label="Next track"
-              disabled={currentTrack === tracks.length - 1}
-            >
-              ⏭
-            </button>
-          </div>
-          
-          <div className="volume-control">
-            <span>🔊</span>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              value={volume}
-              onChange={(e) => setVolume(parseFloat(e.target.value))}
-              className="volume-slider"
-              aria-label={`Volume control, current volume ${Math.round(volume * 100)}%`}
-            />
-          </div>
-          
-          <div className="progress-display">
-            <div className="progress-bar-audio">
-              <div className="progress-fill-audio" style={{ width: `${progress}%` }} />
-            </div>
-            <div className="time-display memory-font">
-              {tracks[currentTrack].duration}
-            </div>
-          </div>
-        </div>
+        )}
       </div>
-      )}
 
+      <AnimatePresence>
+        {selectedImage && (
+          <Lightbox 
+            imageSrc={selectedImage.image} 
+            caption={selectedImage.caption} 
+            onClose={() => setSelectedImage(null)} 
+          />
+        )}
+      </AnimatePresence>
 
-      <audio
-        key={friend}
-        ref={audioRef}
-        loop
-        volume={volume}
-        onEnded={() => setCurrentTrack((currentTrack + 1) % tracks.length)}
-      >
-        <source src={friend === 'roe' ? "/music/newyears.mp3" : "/music/nostalgic-track.mp3"} type="audio/mpeg" />
+      <audio ref={audioRef} loop autoPlay>
+        <source src={friend === 'dara' ? '/music/nostalgic-track.mp3' : '/music/newyears.mp3'} type="audio/mpeg" />
+        Your browser does not support the audio element.
       </audio>
     </div>
-  )
-}
+  );
+};
 
-export default MemoriesGallery
+export default MemoriesGallery;

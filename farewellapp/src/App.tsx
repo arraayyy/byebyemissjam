@@ -1,33 +1,23 @@
 import { useState, Suspense } from 'react';
 import ShellLanding from './components/ShellLanding';
-import FriendSelection from './components/FriendSelection';
 import MemoriesGallery from './components/MemoriesGallery';
 import MagicCanvas from './components/MagicCanvas';
 import SnowflakeCursor from './components/MagicCursor';
 import './App.css';
 
-type AppState = 'shell-closed' | 'shell-open' | 'memories-dara' | 'memories-roe';
+type AppState = 'landing' | 'memories-dara' | 'memories-roe';
 
 function App() {
-  const [appState, setAppState] = useState<AppState>('shell-closed');
+  const [appState, setAppState] = useState<AppState>('landing');
 
   const renderCurrentState = () => {
     switch (appState) {
-      case 'shell-closed':
+      case 'landing':
         return <ShellLanding onCardClick={(friend) => setAppState(friend === 'dara' ? 'memories-dara' : 'memories-roe')} />;
-      case 'shell-open':
-        return (
-          <FriendSelection
-            onFriendSelect={(friend) =>
-              setAppState(friend === 'dara' ? 'memories-dara' : 'memories-roe')
-            }
-            onClose={() => setAppState('shell-closed')}
-          />
-        );
       case 'memories-dara':
-        return <MemoriesGallery friend="dara" onBack={() => setAppState('shell-closed')} />;
+        return <MemoriesGallery friend="dara" onBack={() => setAppState('landing')} />;
       case 'memories-roe':
-        return <MemoriesGallery friend="roe" onBack={() => setAppState('shell-closed')} />;
+        return <MemoriesGallery friend="roe" onBack={() => setAppState('landing')} />;
       default:
         return <ShellLanding onCardClick={(friend) => setAppState(friend === 'dara' ? 'memories-dara' : 'memories-roe')} />;
     }
