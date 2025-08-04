@@ -141,3 +141,69 @@
   0%, 100% { opacity: 0.8; }
   50% { opacity: 1; }
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shell-landing {
+    padding: 15px;
+  }
+
+  .puzzle-piece {
+    opacity: 0.08;
+  }
+
+  .landing-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .locket-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .click-prompt {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .locket-container:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .locket-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .click-prompt {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .puzzle-piece {
+    opacity: 0.05;
+  }
+}
+
+@media (max-width: 320px) {
+  .landing-title {
+    font-size: 1.6rem;
+  }
+
+  .locket-container {
+    width: 160px;
+    height: 160px;
+  }
+
+  .click-prompt {
+    font-size: 0.8rem;
+  }
+}

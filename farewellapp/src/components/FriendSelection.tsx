@@ -9,21 +9,22 @@ const roeHeader = '/images/roe-sunrise-adventure.JPG';
 
 interface FriendSelectionProps {
   onFriendSelect: (friend: 'dara' | 'roe') => void;
+  onBack: () => void;
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.9 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      delay: i * 0.25,
-      duration: 0.7,
-      ease: [0.16, 1, 0.3, 1]
-    }
-  })
-};
+// const cardVariants = {
+//   hidden: { opacity: 0, y: 50, scale: 0.9 },
+//   visible: (i: number) => ({
+//     opacity: 1,
+//     y: 0,
+//     scale: 1,
+//     transition: {
+//       delay: i * 0.25,
+//       duration: 0.7,
+//       ease: [0.16, 1, 0.3, 1]
+//     }
+//   })
+// };
 
 const FloatingParticles: React.FC = () => (
   <div className="floating-particles">
@@ -42,10 +43,20 @@ const FloatingParticles: React.FC = () => (
   </div>
 );
 
-const FriendSelection: React.FC<FriendSelectionProps> = ({ onFriendSelect }) => {
+const FriendSelection: React.FC<FriendSelectionProps> = ({ onFriendSelect, onBack }) => {
   return (
     <div className="friend-selection-container">
       <FloatingParticles />
+      <div className="selection-header">
+        <button
+          className="back-button"
+          onClick={onBack}
+          aria-label="Return to landing page"
+        >
+          ← 
+            
+        </button>
+      </div>
       <motion.h1 
         className="selection-title"
         initial={{ opacity: 0, y: -40 }}
@@ -67,7 +78,7 @@ We've bottled up our memories for the past months (and a few tears) for you Ms. 
           className="friend-card dara"
           onClick={() => onFriendSelect('dara')}
           custom={0}
-          variants={cardVariants}
+          // variants={cardVariants}
           initial="hidden"
           animate="visible"
           whileHover={{ y: -10, transition: { duration: 0.3 } }}
@@ -86,7 +97,7 @@ We've bottled up our memories for the past months (and a few tears) for you Ms. 
           className="friend-card roe"
           onClick={() => onFriendSelect('roe')}
           custom={1}
-          variants={cardVariants}
+          // variants={cardVariants}
           initial="hidden"
           animate="visible"
           whileHover={{ y: -10, transition: { duration: 0.3 } }}

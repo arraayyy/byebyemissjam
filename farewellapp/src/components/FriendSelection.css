@@ -16,6 +16,40 @@
   position: relative;
 }
 
+.selection-header {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+.selection-header .back-button {
+  background: rgba(13, 17, 23, 0.9);
+  color: #79c0ff;
+  border: 2px solid #30363d;
+  padding: 12px 24px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(121, 192, 255, 0.3);
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.selection-header .back-button:hover {
+  background: rgba(48, 54, 61, 1);
+  box-shadow: 0 4px 15px rgba(121, 192, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.selection-header .back-button:focus {
+  outline: 3px solid rgba(121, 192, 255, 0.8);
+  outline-offset: 4px;
+  background: rgba(48, 54, 61, 1);
+}
+
 
 
 .friend-selection-container::before {
@@ -175,19 +209,167 @@
 }
 
 @media (max-width: 768px) {
+  .friend-selection-container {
+    padding: 15px;
+  }
+
+  .selection-header {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+  }
+
+  .selection-header .back-button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
   .friend-cards-container {
     flex-direction: column;
-    gap: 35px;
+    gap: 30px;
   }
+
   .friend-card {
-    width: 300px;
+    width: min(300px, 90vw);
     height: 420px;
   }
+
   .selection-title {
     font-size: 2.2rem;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
   }
+
   .selection-subtitle {
     font-size: 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    max-width: 90%;
+    line-height: 1.5;
+  }
+
+  .card-profile-image {
+    width: 120px;
+    height: 120px;
+    top: 110px;
+  }
+
+  .card-body {
+    padding: 80px 20px 20px 20px;
+  }
+
+  .card-name {
+    font-size: 1.5rem;
+  }
+
+  .card-tagline {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .friend-selection-container {
+    padding: 10px;
+  }
+
+  .selection-header {
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+  }
+
+  .selection-header .back-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .friend-card {
+    width: min(280px, 95vw);
+    height: 400px;
+  }
+
+  .selection-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .selection-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    max-width: 95%;
+  }
+
+  .card-header {
+    height: 150px;
+  }
+
+  .card-profile-image {
+    width: 110px;
+    height: 110px;
+    top: 95px;
+  }
+
+  .card-body {
+    padding: 75px 15px 15px 15px;
+  }
+
+  .card-name {
+    font-size: 1.4rem;
+  }
+
+  .card-tagline {
+    font-size: 0.85rem;
+  }
+
+  .friend-card:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@media (max-width: 320px) {
+  .selection-header {
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+
+  .selection-header .back-button {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .friend-card {
+    width: min(260px, 98vw);
+    height: 380px;
+  }
+
+  .selection-title {
+    font-size: 1.6rem;
+  }
+
+  .selection-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-header {
+    height: 140px;
+  }
+
+  .card-profile-image {
+    width: 100px;
+    height: 100px;
+    top: 85px;
+  }
+
+  .card-body {
+    padding: 65px 12px 12px 12px;
+  }
+
+  .card-name {
+    font-size: 1.3rem;
+  }
+
+  .card-tagline {
+    font-size: 0.8rem;
   }
 }

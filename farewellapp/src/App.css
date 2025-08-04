@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
 
+@font-face {
+  font-family: 'Sophe';
+  src: url('/fonts/Sophe.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .app-container {
   width: 100vw;
   height: 100vh;

@@ -22,27 +22,54 @@ interface Photo {
 
 const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ friend, onBack }) => {
   const [selectedImage, setSelectedImage] = useState<Photo | null>(null);
-  const [achievements] = useState<string[]>(['Shell Explorer', 'Memory Explorer']);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.play().catch(console.error);
+      // Set default volume to 80%
+      audioRef.current.volume = 0.8;
+      
+      // Add 10-second delay before playing
+      setTimeout(() => {
+        audioRef.current?.play().catch(console.error);
+      }, 10000);
     }
   }, [friend]);
 
   const daraMemories = {
     centerLetter: {
-      title: 'To My Cutie Senior FE Dev',
-      content: `Hi Miorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.ss Jam TESTETSTETSTSTT ✨🎮`,
+      title: 'To My Cutie Senior FE Lead',
+      content: `
+Thank you for mentoring us these past nine months, for reviewing our MRs, helping us with our Jira tasks, and always guiding us patiently.
+
+Basin nakakatawa ka karon, Miss, kay naa pa gyud music detso para makahilak jud ka ba. Wala pa gyud pause ang player 😆
+
+Thank you, Miss, for patiently introducing us to new things and onboarding us. For sharing your learnings, giving your time especially when we got stuck on complex tasks, and for always encouraging us to keep going.
+
+Even when my questions got confusing at times, you always found a way to explain things clearly and calmly. I never felt too small because you made learning feel safe. You weren’t just our senior dev, Miss, you were like a safe space. You made intimidating things feel doable. ♥️
+
+I really hope someday I can be like you , smart, insightful, full of ideas, and open-minded. Apil na jud ang pagka-cute, Miss. Mas mura pa mi ug senior tan-awon kaysa nimo 😆
+
+I’ve already learned so much from you, miss Jam, from how you speak, how you handle tasks, how you organize your thoughts, and how you deliver them with clarity. I hope I won’t forget any of it. I’ll also start reading the book you gave me, Miss, it means a lot to me  :))
+
+And Miss, tbh I felt really empty atong last nato kita. But I’m still glad kay nibalik mo ato sa The Social. Na-memorize na nako imong face, Miss, nya grabe pajud ang lights ato sa imo likod- super bright, mura kag angel sa backlight xD
+
+Thank you kaayo, Miss, for believing in our potential. This may just be a small percent of our success, but for starters like us, it already means a lot.
+
+I wish you all the best on your next journey. Lisod jud mag-goodbye, Miss, but I truly believe you’ll succeed in whatever you pursue, bc you’re smart, full of vision, and you give your 100% And I hope it brings you the joy you deserve, Miss. Me and Roe will miss you a lot <3 ^___^ :)))  🙇‍♀️
+
+See you around, Miss. :D HEHEHEHE wala pa nahuman ang kanta miss xD?
+
+
+- Dara ♥(ˆ⌣ˆԅ) `,
       date: '04.08.2025',
     },
     photos: [
       { id: 1, title: 'Cutie Devs', caption: 'Pero ikaw jud pinaka cute diri miss oy', rotation: 0, position: { top: 5, left: 2 }, image: '/images/dara-gaming-marathon.JPG' },
       { id: 2, title: 'Productivity', caption: 'Chika lang sa ta ani miss, kay naa sa sud ang laptop xD', rotation: 0, position: { top: 8, right: 2 }, image: '/images/dara-concert-night.JPG' },
       { id: 3, title: 'FE MileStone', caption: '2030: Frontend Devs Change History? xD.', rotation: 0, position: { top: 35, left: 1 }, image: '/images/dara-coffee-shop.jpg' },
-      { id: 4, title: 'Legacy Onboard', caption: 'Bsan unsa nalang ako gibutang diri ahahaha, gamay ra ato pics miss. Memorize na nako imo nawong miss hahahah', rotation: 0, position: { top: 38, right: 1 }, image: '/images/dara-road-trip.jpg' },
-      { id: 5, title: 'Christmas Party Performance', caption: 'salamat sa pagtudlo sa steppings miss, Bonjour~ Bonjour~  ', rotation: 0, position: { top: 65, left: 3 }, image: '/images/dara-birthday.jpg' },
+      { id: 4, title: 'Legacy Onboard', caption: 'Bsan unsa nalang ako gibutang diri ahahaha, gamay ra ato pics miss. Kato untang legacy moments hahah kaso wfh man (╯︵╰,)', rotation: 0, position: { top: 38, right: 1 }, image: '/images/dara-road-trip.jpg' },
+      { id: 5, title: 'Christmas Party Performance', caption: 'salamat sa pagtudlo sa steppings miss, Bonjour~ Bonjour~  ', rotation: 0, position: { top: 65, left: 3 }, image: '/images/dara-birthday.JPG' },
       { id: 6, title: 'Chika Session', caption: 'Salamat sa tanan nmu advice ate Jam <3 ', rotation: 0, position: { top: 68, right: 3 }, image: '/images/dara-study-session.jpg' },
 
       
@@ -130,7 +157,7 @@ const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ friend, onBack }) => 
                   <h2 className="letter-title">{currentMemories.centerLetter.title}</h2>
                   <div className="letter-date">{currentMemories.centerLetter.date}</div>
                 </div>
-                <div className="letter-body">
+                <div className="letter-body dara-letter-content">
                   {currentMemories.centerLetter.content.split('\n').map((paragraph, index) => (
                     <p key={index}>{paragraph}</p>
                   ))}

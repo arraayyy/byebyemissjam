@@ -40,8 +40,12 @@ const ShellLanding: React.FC<ShellLandingProps> = ({ onCardClick }) => {
     setIsLocketClicked(true);
   };
 
+  const handleBackToLanding = () => {
+    setIsLocketClicked(false);
+  };
+
   if (isLocketClicked) {
-    return <FriendSelection onFriendSelect={onCardClick} />;
+    return <FriendSelection onFriendSelect={onCardClick} onBack={handleBackToLanding} />;
   }
 
   return (
