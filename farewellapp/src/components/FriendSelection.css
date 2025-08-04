@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+.friend-selection-container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  animation: fadeIn 1.5s ease-in-out;
+  overflow: hidden;
+  position: relative;
+}
+
+.selection-header {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+.selection-header .back-button {
+  background: rgba(13, 17, 23, 0.9);
+  color: #79c0ff;
+  border: 2px solid #30363d;
+  padding: 12px 24px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(121, 192, 255, 0.3);
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.selection-header .back-button:hover {
+  background: rgba(48, 54, 61, 1);
+  box-shadow: 0 4px 15px rgba(121, 192, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.selection-header .back-button:focus {
+  outline: 3px solid rgba(121, 192, 255, 0.8);
+  outline-offset: 4px;
+  background: rgba(48, 54, 61, 1);
+}
+
+
+
+.friend-selection-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 40%),
+              radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+  animation: background-pulse 8s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes background-pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.selection-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #e0e0e0;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+  text-shadow: 0 3px 15px rgba(0,0,0,0.3);
+}
+
+.selection-subtitle {
+  font-size: 1.1rem;
+  color: #a0a0b0;
+  max-width: 600px;
+  margin-bottom: 3.5rem;
+  line-height: 1.6;
+}
+
+.friend-cards-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+}
+
+.friend-card {
+  width: 320px;
+  height: 440px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  background: rgba(22, 27, 34, 0.5);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.friend-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-header {
+  height: 170px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(22, 27, 34, 0.8), transparent);
+    z-index: 2;
+}
+
+.card-header-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  filter: grayscale(30%);
+}
+
+.friend-card:hover .card-header-image {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+}
+
+.card-profile-image {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 255, 255, 0.9);
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  transform: translateX(-50%);
+  object-fit: cover;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+  z-index: 3;
+}
+
+.friend-card:hover .card-profile-image {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+}
+
+.card-body {
+  padding: 85px 25px 25px 25px;
+  text-align: center;
+  color: #c9d1d9;
+}
+
+.card-name {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.card-tagline {
+  font-size: 0.95rem;
+  color: #8b949e;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.friend-card.dara .card-name {
+  color: #ff85a1;
+}
+
+.friend-card.dara:hover {
+  box-shadow: 0 25px 50px rgba(255, 133, 161, 0.2);
+  border-color: rgba(255, 133, 161, 0.4);
+}
+
+.friend-card.roe .card-name {
+  color: #79c0ff;
+}
+
+.friend-card.roe:hover {
+  box-shadow: 0 25px 50px rgba(121, 192, 255, 0.2);
+  border-color: rgba(121, 192, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .friend-selection-container {
+    padding: 15px;
+  }
+
+  .selection-header {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+  }
+
+  .selection-header .back-button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .friend-cards-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .friend-card {
+    width: min(300px, 90vw);
+    height: 420px;
+  }
+
+  .selection-title {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+
+  .selection-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    max-width: 90%;
+    line-height: 1.5;
+  }
+
+  .card-profile-image {
+    width: 120px;
+    height: 120px;
+    top: 110px;
+  }
+
+  .card-body {
+    padding: 80px 20px 20px 20px;
+  }
+
+  .card-name {
+    font-size: 1.5rem;
+  }
+
+  .card-tagline {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .friend-selection-container {
+    padding: 10px;
+  }
+
+  .selection-header {
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+  }
+
+  .selection-header .back-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .friend-card {
+    width: min(280px, 95vw);
+    height: 400px;
+  }
+
+  .selection-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .selection-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    max-width: 95%;
+  }
+
+  .card-header {
+    height: 150px;
+  }
+
+  .card-profile-image {
+    width: 110px;
+    height: 110px;
+    top: 95px;
+  }
+
+  .card-body {
+    padding: 75px 15px 15px 15px;
+  }
+
+  .card-name {
+    font-size: 1.4rem;
+  }
+
+  .card-tagline {
+    font-size: 0.85rem;
+  }
+
+  .friend-card:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@media (max-width: 320px) {
+  .selection-header {
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+
+  .selection-header .back-button {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .friend-card {
+    width: min(260px, 98vw);
+    height: 380px;
+  }
+
+  .selection-title {
+    font-size: 1.6rem;
+  }
+
+  .selection-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-header {
+    height: 140px;
+  }
+
+  .card-profile-image {
+    width: 100px;
+    height: 100px;
+    top: 85px;
+  }
+
+  .card-body {
+    padding: 65px 12px 12px 12px;
+  }
+
+  .card-name {
+    font-size: 1.3rem;
+  }
+
+  .card-tagline {
+    font-size: 0.8rem;
+  }
+}

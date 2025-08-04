@@ -1,0 +1,209 @@
+.shell-landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #0d1117; /* Dark background color */
+}
+
+.puzzle-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.puzzle-piece {
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15; /* Slightly adjusted for subtlety */
+  filter: grayscale(80%) contrast(1.2) brightness(0.8);
+  transition: all 0.4s ease;
+  animation: puzzle-float 15s ease-in-out infinite;
+}
+
+@keyframes puzzle-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.landing-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.landing-title {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-shadow: 0 3px 15px rgba(0,0,0,0.5);
+}
+
+.locket-container {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.locket-container:hover {
+  transform: scale(1.08);
+}
+
+.memory-locket {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffcf70, #ffb84d);
+  border: 3px solid #fff2d4;
+  box-shadow: 0 10px 40px rgba(255, 184, 77, 0.4), 
+              inset 0 0 30px rgba(255, 242, 212, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  animation: float-locket 8s ease-in-out infinite;
+}
+
+@keyframes float-locket {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.locket-glow {
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    rgba(255, 215, 0, 0.4) 50%, 
+    transparent 70%
+  );
+  animation: glow-pulse 4s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+.locket-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.locket-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  filter: brightness(1.1);
+}
+
+.locket-container:hover .locket-image {
+  opacity: 1;
+}
+
+.click-prompt {
+  margin-top: 2rem;
+  color: #f0f0f0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  animation: pulse-text 4s ease-in-out infinite;
+}
+
+@keyframes pulse-text {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shell-landing {
+    padding: 15px;
+  }
+
+  .puzzle-piece {
+    opacity: 0.08;
+  }
+
+  .landing-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .locket-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .click-prompt {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .locket-container:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .locket-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .click-prompt {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .puzzle-piece {
+    opacity: 0.05;
+  }
+}
+
+@media (max-width: 320px) {
+  .landing-title {
+    font-size: 1.6rem;
+  }
+
+  .locket-container {
+    width: 160px;
+    height: 160px;
+  }
+
+  .click-prompt {
+    font-size: 0.8rem;
+  }
+}

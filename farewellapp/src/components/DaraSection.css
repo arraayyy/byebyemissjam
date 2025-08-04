@@ -1,0 +1,55 @@
+.dara-section {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0c0c0c 100%);
+  padding: 40px;
+  color: #e0e0e0;
+}
+
+.music-player-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 133, 161, 0.8);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 20px rgba(255, 133, 161, 0.4);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.music-player-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(255, 133, 161, 0.6);
+}
+
+.music-player-container {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 320px;
+  background: rgba(30, 30, 40, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+  z-index: 999;
+}
+
+.music-player-container.hidden {
+  transform: translateY(150%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+audio {
+  width: 100%;
+  filter: invert(1) hue-rotate(180deg);
+}
